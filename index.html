@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
+
+    <title>moonSim!</title>
+
+    <script src="./js/main.js" type="module"></script>
+</head>
+<body>
+<div class="container-md">
+    <div class="row">
+        <div class="col-md-auto pt-3 order-md-1">
+            <canvas class="border border-primary rounded" height="400" id="canvas" width="400">
+                Sorry, your browser doesn't support the &lt;canvas&gt; element.
+            </canvas>
+
+            <hr class="mb-4">
+
+
+            <span class="label label-default">Zoom Level:</span>
+            <div aria-label="Zoom level" class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary">
+                    <input id="btnZoom1" name="zoomLevel" type="radio"> 1
+                </label>
+                <label class="btn btn-secondary active">
+                    <input id="btnZoom2" checked name="zoomLevel" type="radio"> 2
+                </label>
+                <label class="btn btn-secondary">
+                    <input id="btnZoom3" name="zoomLevel" type="radio"> 3
+                </label>
+                <label class="btn btn-secondary">
+                    <input id="btnZoom4" name="zoomLevel" type="radio"> 4
+                </label>
+                <label class="btn btn-secondary">
+                    <input id="btnZoom5" name="zoomLevel" type="radio">5
+                </label>
+                <label class="btn btn-secondary">
+                    <input id="btnZoom6" name="zoomLevel" type="radio"> 6
+                </label>
+                <label class="btn btn-secondary">
+                    <input id="btnZoom7" name="zoomLevel" type="radio"> 7
+                </label>
+            </div>
+
+
+            <div class="w-100"></div>
+
+            <button class="btn btn-primary pl-4 pr-4" type="button">Start</button>
+            <button class="btn btn-danger" disabled type="button">Stop</button>
+        </div>
+
+        <div class="col-md order-md-2">
+            <h4 class="mb-3">Known constants:</h4>
+            <h6 class="mb-3">Moon:</h6>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="moonWeightLbl">Weight (kg):</span>
+                </div>
+                <input aria-describedby="moonWeightLbl" aria-label="Weight" class="form-control" id="moonWeightInput"
+                       placeholder="Weight" type="number" value="7.342e+22">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="moonRadiusLbl">Radius (m):</span>
+                </div>
+                <input aria-describedby="moonRadiusLbl" aria-label="Radius" class="form-control" id="moonRadiusInput"
+                       placeholder="Radius" type="number" value="1.7374e+06">
+            </div>
+
+            <h6 class="mb-3">Satellite:</h6>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="satWeightLbl">Weight (kg):</span>
+                </div>
+                <input aria-describedby="satWeightLbl" aria-label="Weight" class="form-control" id="satWeightInput"
+                       placeholder="Weight" type="number" value="1.0">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="satOrbitLbl">Lunar Orbit (m):</span>
+                </div>
+                <input aria-describedby="satOrbitLbl" aria-label="Orbit" class="form-control" id="satOrbitInput"
+                       placeholder="Orbit" type="number" value="5e+04">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="satStartVelocityLbl">Starting Velocity (m/s):</span>
+                </div>
+                <input aria-describedby="satStartVelocityLbl" aria-label="Velocity" class="form-control"
+                       id="satStartVelocityInput"
+                       placeholder="Velocity" type="number" value="1.678e+03">
+            </div>
+        </div>
+
+        <div class="col-md order-md-3">
+            <h4 class="mb-3">Simulated measurements:</h4>
+            <h6 class="mb-3">Satellite:</h6>
+        </div>
+    </div>
+
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script crossorigin="anonymous"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>
