@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 
     <!-- Icon is from here: http://www.iconarchive.com/show/free-space-icons-by-goodstuff-no-nonsense/moon-full-moon-icon.html -->
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link href="favicon.svg" rel="icon" type="image/svg+xml">
 
     <!-- Bootstrap CSS -->
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -20,20 +20,19 @@
 <div class="container-md">
     <div class="row">
         <div class="col-md-auto pt-3 order-md-1">
-            <canvas class="border border-primary rounded" height="400" id="canvas" width="400">
+            <canvas class="border border-secondary rounded" height="400" id="spaceCanvas" width="400">
                 Sorry, your browser doesn't support the &lt;canvas&gt; element.
             </canvas>
 
             <hr class="mb-4">
 
-
             <span class="label label-default">Zoom Level:</span>
-            <div aria-label="Zoom level" class="btn-group btn-group-toggle" data-toggle="buttons">
+            <div aria-label="Zoom level" class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
                 <label class="btn btn-secondary">
-                    <input id="btnZoom1" name="zoomLevel" type="radio"> 1
+                    <input id="btnZoom1" name="zoomLevel" type="radio"> min
                 </label>
                 <label class="btn btn-secondary active">
-                    <input id="btnZoom2" checked name="zoomLevel" type="radio"> 2
+                    <input checked id="btnZoom2" name="zoomLevel" type="radio"> 2
                 </label>
                 <label class="btn btn-secondary">
                     <input id="btnZoom3" name="zoomLevel" type="radio"> 3
@@ -48,15 +47,14 @@
                     <input id="btnZoom6" name="zoomLevel" type="radio"> 6
                 </label>
                 <label class="btn btn-secondary">
-                    <input id="btnZoom7" name="zoomLevel" type="radio"> 7
+                    <input id="btnZoom7" name="zoomLevel" type="radio"> max
                 </label>
             </div>
 
+            <div class="w-100 mb-2"></div>
 
-            <div class="w-100"></div>
-
-            <button class="btn btn-primary pl-4 pr-4" type="button">Start</button>
-            <button class="btn btn-danger" disabled type="button">Stop</button>
+            <button class="btn btn-primary pl-4 pr-4" id="btnStart" type="button">Start</button>
+            <button class="btn btn-danger" disabled id="btnStop" type="button">Stop</button>
         </div>
 
         <div class="col-md order-md-2">
