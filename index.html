@@ -86,9 +86,9 @@
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="satOrbitLbl">Lunar Orbit (m):</span>
+                    <span class="input-group-text" id="satOrbitInputLbl">Lunar Orbit (m):</span>
                 </div>
-                <input aria-describedby="satOrbitLbl" aria-label="Orbit" class="form-control" id="satOrbitInput"
+                <input aria-describedby="satOrbitInputLbl" aria-label="Orbit" class="form-control" id="satOrbitInput"
                        placeholder="Orbit" type="number" value="5e+04">
             </div>
             <div class="input-group mb-3">
@@ -96,14 +96,34 @@
                     <span class="input-group-text" id="satStartVelocityLbl">Starting Velocity (m/s):</span>
                 </div>
                 <input aria-describedby="satStartVelocityLbl" aria-label="Velocity" class="form-control"
-                       id="satStartVelocityInput"
-                       placeholder="Velocity" type="number" value="1.678e+03">
+                       id="satStartVelocityInput" placeholder="Velocity" type="number" value="1.678e+03">
             </div>
         </div>
 
         <div class="col-md order-md-3">
             <h4 class="mb-3">Simulated measurements:</h4>
             <h6 class="mb-3">Satellite:</h6>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="satOrbitOutputLbl">Lunar Orbit (m):</span>
+                </div>
+                <input aria-describedby="satOrbitOutputLbl" aria-label="Orbit" class="form-control" id="satOrbitOutput"
+                       placeholder="Orbit" readonly type="number" value="0.0">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="satVelocityLbl">Velocity (m/s):</span>
+                </div>
+                <input aria-describedby="satVelocityLbl" aria-label="Velocity" class="form-control" id="satVelocityOutput"
+                       placeholder="Velocity" readonly type="number" value="0.0">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="satAccelerationLbl">Acceleration (m/s):</span>
+                </div>
+                <input aria-describedby="satAccelerationLbl" aria-label="Acceleration" class="form-control" id="satAccelerationOutput"
+                       placeholder="Acceleration" readonly type="number" value="0.0">
+            </div>
         </div>
     </div>
 

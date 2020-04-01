@@ -25,12 +25,31 @@ class Viewport {
         }
     }
 
+    /**
+     * Projects the x-coordinate to the canvas
+     * @param {Number} x
+     * @returns {Number} x-coordinate on the canvas
+     */
     projectX(x) {
         return (x - this.viewport.topLeft.x) * this.projection.width / (this.viewport.bottomRight.x - this.viewport.topLeft.x);
     }
 
+    /**
+     * Projects the y-coordinate to the canvas
+     * @param {Number} y
+     * @returns {Number} y-coordinate on the canvas
+     */
     projectY(y) {
         return (y - this.viewport.topLeft.y) * this.projection.height / (this.viewport.bottomRight.y - this.viewport.topLeft.y);
+    }
+
+    /**
+     * Projects the length to the canvas coordinates to the abscissa
+     * @param {Number} d
+     * @returns {Number} the length on the canvas
+     */
+    projectLength(d) {
+        return d * this.projection.width / (this.viewport.bottomRight.x - this.viewport.topLeft.x);
     }
 }
 

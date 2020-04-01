@@ -2,19 +2,47 @@ import * as Space from "./space.js";
 import {Coord} from "./space.js";
 import {Viewport} from "./utils.js"
 
-const SPACE_X1 = -1e7; // 10.000 km
-const SPACE_Y1 = 1e7;
-const SPACE_X2 = 1e7;
-const SPACE_Y2 = -1e7;
+const SPACE_X1 = -0.5e7; // 10.000 km
+const SPACE_Y1 = 0.5e7;
+const SPACE_X2 = 0.5e7;
+const SPACE_Y2 = -0.5e7;
 const STEP_X = 1e6; // 1.000 km
 const STEP_Y = 1e6;
 
 class Board {
+    /**
+     * Creates a board object
+     * @constructor
+     * @param {HTMLCanvasElement} canvas
+     */
     constructor(canvas) {
-        Object.defineProperties(this, {
-            ctx: {value: canvas.getContext("2d", {alpha: false})}, // type: CanvasRenderingContext2D
-            width: {value: canvas.width},
-            height: {value: canvas.height}
+        /**
+         * @name Board#ctx
+         * @type {CanvasRenderingContext2D}
+         * @readonly
+         */
+        Object.defineProperty(this, "ctx", {
+            value: canvas.getContext("2d", {
+                alpha: false
+            })
+        });
+
+        /**
+         * @name Board#width
+         * @type {Number}
+         * @readonly
+         */
+        Object.defineProperty(this, "width", {
+            value: canvas.width
+        });
+
+        /**
+         * @name Board#height
+         * @type {Number}
+         * @readonly
+         */
+        Object.defineProperty(this, "height", {
+            value: canvas.height
         });
 
         this._massiveObjects = [];
@@ -74,14 +102,54 @@ class Board {
             this.ctx.moveTo(ordinateX1 - 2, ordinateY);
             this.ctx.lineTo(ordinateX1 + 2, ordinateY);
         }
+        this.ctx.closePath();
         this.ctx.stroke();
 
         this.ctx.restore();
     }
 
     drawMassive() {
-        for (let body of this._massiveObjects) {
+        let centerX = 0, centerY = 0, radius = 0;
 
+        for (let body of this._massiveObjects) {
+            centerX = this._viewport.projectX(this._positions.get(body.key).x);
+            centerY = this._viewport.projectY(this._positions.get(body.key).y);
+            radius = this._viewport.projectLength(body.radius);
+
+            const gradient = this.ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
+            gradient.addColorStop(0.0, '#FFFEFA');
+            gradient.addColorStop(0.2, '#FFFEFA');
+            gradient.addColorStop(0.9, '#FDFADF');
+            gradient.addColorStop(1.0, 'gray');
+
+            this.ctx.save();
+            this.ctx.fillStyle = gradient;
+
+            this.ctx.beginPath();
+            this.ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            this.ctx.closePath();
+            this.ctx.fill();
+
+            this.ctx.restore();
+        }
+    }
+
+    drawLight() {
+        let centerX = 0, centerY = 0, radius = 0;
+
+        for (let body of this._lightObjects) {
+            centerX = this._viewport.projectX(this._positions.get(body.key).x);
+            centerY = this._viewport.projectY(this._positions.get(body.key).y);
+
+            this.ctx.save();
+            this.ctx.fillStyle = "Black";
+
+            this.ctx.beginPath();
+            this.ctx.arc(centerX, centerY, 2, 0, 2 * Math.PI);
+            this.ctx.closePath();
+            this.ctx.fill();
+
+            this.ctx.restore();
         }
     }
 
@@ -90,8 +158,9 @@ class Board {
         this.ctx.clearRect(0, 0, this.width, this.height); // clear canvas
 
         this.drawBackground();
-        this.drawAxes();
         this.drawMassive();
+        this.drawLight();
+        this.drawAxes();
 
         window.requestAnimationFrame((t) => this.onRefreshFrame(t));
     }
@@ -113,9 +182,12 @@ class Board {
             this._lightObjects.push(body);
         }
     }
-
 }
 
+/**
+ * Creates the Moon body using data from input elements
+ * @returns {Moon}
+ */
 export function createMoon() {
     const weight = document.getElementById("moonWeightInput").valueAsNumber;
     const radius = document.getElementById("moonRadiusInput").valueAsNumber;
