@@ -1,5 +1,6 @@
 import * as BoardUtils from "./board.js";
 import {Coord} from "./space.js";
+import {Universe, Velocity} from "./universe.js";
 
 window.addEventListener("load", function (e) {
     console.time("Init");
@@ -8,9 +9,7 @@ window.addEventListener("load", function (e) {
     const moon = BoardUtils.createMoon();
     const sat = BoardUtils.createSatellite();
     const board = BoardUtils.createBoard("spaceCanvas");
-
-    board.addBody(moon, new Coord(0, 0));
-    board.addBody(sat, new Coord(moon.radius + 50, 0));
+    const universe = new Universe();
 
     for (let i = 0; i < 6; i++) {
         const zoomBtn = document.getElementById(`btnZoom${i}`);
@@ -19,6 +18,13 @@ window.addEventListener("load", function (e) {
         });
     }
     document.getElementById("btnZoom3").click(); // default zoom level to avoid FF page state caching
+
+    universe.addBody(moon, new Coord(0, 0));
+    universe.addBody(sat, new Coord(moon.radius + 100, 0), new Velocity(2, 0));
+
+    board.addBody(universe.massBodies[0].body, universe.massBodies[0].position);
+    board.addBody(universe.lightBodies[0].body, universe.lightBodies[0].position);
+
 
     console.timeEnd("Init");
 });
