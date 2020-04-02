@@ -1,13 +1,6 @@
 import * as Space from "./space.js";
 import {Coord} from "./space.js";
-import {Viewport} from "./utils.js"
-
-const SPACE_X1 = -0.5e7; // 10.000 km
-const SPACE_Y1 = 0.5e7;
-const SPACE_X2 = 0.5e7;
-const SPACE_Y2 = -0.5e7;
-const STEP_X = 1e6; // 1.000 km
-const STEP_Y = 1e6;
+import {ViewportParams, ZOOM_LEVELS} from "./utils.js"
 
 class Board {
     /**
@@ -48,10 +41,8 @@ class Board {
         this._massiveObjects = [];
         this._lightObjects = [];
         this._positions = new Map();
-        this._viewport = new Viewport(
-            new Coord(SPACE_X1, SPACE_Y1), new Coord(SPACE_X2, SPACE_Y2),
-            this.width, this.height
-        );
+        this._zoomLevel = 3;
+        this.changeZoom(this._zoomLevel);
 
         window.requestAnimationFrame((t) => this.onRefreshFrame(t));
     }
@@ -65,17 +56,17 @@ class Board {
     }
 
     drawAxes() {
-        let abscissaX1 = this._viewport.projectX(SPACE_X1);
-        let abscissaY1 = this._viewport.projectY(0);
+        let abscissaX1 = this._viewportParams.projectX(this._viewportParams.viewport.topLeft.x);
+        let abscissaY1 = this._viewportParams.projectY(0);
 
-        let abscissaX2 = this._viewport.projectX(SPACE_X2);
-        let abscissaY2 = this._viewport.projectY(0);
+        let abscissaX2 = this._viewportParams.projectX(this._viewportParams.viewport.bottomRight.x);
+        let abscissaY2 = this._viewportParams.projectY(0);
 
-        let ordinateX1 = this._viewport.projectX(0);
-        let ordinateY1 = this._viewport.projectY(SPACE_Y1);
+        let ordinateX1 = this._viewportParams.projectX(0);
+        let ordinateY1 = this._viewportParams.projectY(this._viewportParams.viewport.topLeft.y);
 
-        let ordinateX2 = this._viewport.projectX(0);
-        let ordinateY2 = this._viewport.projectY(SPACE_Y2);
+        let ordinateX2 = this._viewportParams.projectX(0);
+        let ordinateY2 = this._viewportParams.projectY(this._viewportParams.viewport.bottomRight.y);
 
         // Draw Axes
         this.ctx.save();
@@ -90,14 +81,18 @@ class Board {
         this.ctx.strokeStyle = '#BBBBBB';
 
         this.ctx.beginPath();
-        for (let tickX = SPACE_X1; tickX < SPACE_X2; tickX += STEP_X) {
-            let abscissaX = this._viewport.projectX(tickX);
+        for (let tickX = this._viewportParams.viewport.topLeft.x;
+             tickX < this._viewportParams.viewport.bottomRight.x;
+             tickX += ZOOM_LEVELS[this._zoomLevel].STEP_X) {
+            let abscissaX = this._viewportParams.projectX(tickX);
 
             this.ctx.moveTo(abscissaX, abscissaY1 - 2);
             this.ctx.lineTo(abscissaX, abscissaY1 + 2);
         }
-        for (let tickY = SPACE_Y2; tickY < SPACE_Y1; tickY += STEP_Y) {
-            let ordinateY = this._viewport.projectY(tickY);
+        for (let tickY = this._viewportParams.viewport.bottomRight.y;
+             tickY < this._viewportParams.viewport.topLeft.y;
+             tickY += ZOOM_LEVELS[this._zoomLevel].STEP_Y) {
+            let ordinateY = this._viewportParams.projectY(tickY);
 
             this.ctx.moveTo(ordinateX1 - 2, ordinateY);
             this.ctx.lineTo(ordinateX1 + 2, ordinateY);
@@ -112,9 +107,9 @@ class Board {
         let centerX = 0, centerY = 0, radius = 0;
 
         for (let body of this._massiveObjects) {
-            centerX = this._viewport.projectX(this._positions.get(body.key).x);
-            centerY = this._viewport.projectY(this._positions.get(body.key).y);
-            radius = this._viewport.projectLength(body.radius);
+            centerX = this._viewportParams.projectX(this._positions.get(body.key).x);
+            centerY = this._viewportParams.projectY(this._positions.get(body.key).y);
+            radius = this._viewportParams.projectLength(body.radius);
 
             const gradient = this.ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
             gradient.addColorStop(0.0, '#FFFEFA');
@@ -138,8 +133,8 @@ class Board {
         let centerX = 0, centerY = 0, radius = 0;
 
         for (let body of this._lightObjects) {
-            centerX = this._viewport.projectX(this._positions.get(body.key).x);
-            centerY = this._viewport.projectY(this._positions.get(body.key).y);
+            centerX = this._viewportParams.projectX(this._positions.get(body.key).x);
+            centerY = this._viewportParams.projectY(this._positions.get(body.key).y);
 
             this.ctx.save();
             this.ctx.fillStyle = "Black";
@@ -181,6 +176,16 @@ class Board {
         } else {
             this._lightObjects.push(body);
         }
+    }
+
+    changeZoom(zoomLevel) {
+        this._zoomLevel = zoomLevel;
+        const coords = ZOOM_LEVELS[this._zoomLevel];
+
+        this._viewportParams = new ViewportParams(
+            new Coord(coords.SPACE_X1, coords.SPACE_Y1), new Coord(coords.SPACE_X2, coords.SPACE_Y2),
+            this.width, this.height
+        );
     }
 }
 

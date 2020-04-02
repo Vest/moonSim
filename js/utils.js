@@ -1,4 +1,50 @@
-class Viewport {
+const ZOOM_LEVELS = [
+    { // Min - 0
+        SPACE_X1: -4e7,
+        SPACE_Y1: 4e7,
+        SPACE_X2: 4e7,
+        SPACE_Y2: -4e7,
+        STEP_X: 1e6,
+        STEP_Y: 1e6
+    }, { // 1
+        SPACE_X1: -2e7,
+        SPACE_Y1: 2e7,
+        SPACE_X2: 2e7,
+        SPACE_Y2: -2e7,
+        STEP_X: 1e6,
+        STEP_Y: 1e6
+    }, { // 2
+        SPACE_X1: -1e7,
+        SPACE_Y1: 1e7,
+        SPACE_X2: 1e7,
+        SPACE_Y2: -1e7,
+        STEP_X: 1e6,
+        STEP_Y: 1e6
+    }, { // 3 - default
+        SPACE_X1: -0.5e7,
+        SPACE_Y1: 0.5e7,
+        SPACE_X2: 0.5e7,
+        SPACE_Y2: -0.5e7,
+        STEP_X: 1e6,
+        STEP_Y: 1e6
+    }, { // 4
+        SPACE_X1: -0.3e7,
+        SPACE_Y1: 0.3e7,
+        SPACE_X2: 0.3e7,
+        SPACE_Y2: -0.3e7,
+        STEP_X: 1e5,
+        STEP_Y: 1e5
+    }, { // Max - 5
+        SPACE_X1: -2e6,
+        SPACE_Y1: 2e6,
+        SPACE_X2: 2e6,
+        SPACE_Y2: -2e6,
+        STEP_X: 1e5,
+        STEP_Y: 1e5
+    }
+];
+
+class ViewportParams {
     constructor(topLeft, bottomRight, projWidth, projHeight) {
         this.viewport = {
             topLeft: topLeft,
@@ -54,5 +100,5 @@ class Viewport {
 }
 
 export {
-    Viewport
+    ViewportParams, ZOOM_LEVELS
 };

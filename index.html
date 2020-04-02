@@ -29,25 +29,22 @@
             <span class="label label-default">Zoom Level:</span>
             <div aria-label="Zoom level" class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
                 <label class="btn btn-secondary">
-                    <input id="btnZoom1" name="zoomLevel" type="radio"> min
+                    <input data-level="0" id="btnZoom0" name="zoomLevel" type="radio"> min
+                </label>
+                <label class="btn btn-secondary">
+                    <input data-level="1" id="btnZoom1" name="zoomLevel" type="radio"> 1
+                </label>
+                <label class="btn btn-secondary">
+                    <input data-level="2" id="btnZoom2" name="zoomLevel" type="radio"> 2
                 </label>
                 <label class="btn btn-secondary active">
-                    <input checked id="btnZoom2" name="zoomLevel" type="radio"> 2
+                    <input checked data-level="3" id="btnZoom3" name="zoomLevel" type="radio"> 3
                 </label>
                 <label class="btn btn-secondary">
-                    <input id="btnZoom3" name="zoomLevel" type="radio"> 3
+                    <input data-level="4" id="btnZoom4" name="zoomLevel" type="radio"> 4
                 </label>
                 <label class="btn btn-secondary">
-                    <input id="btnZoom4" name="zoomLevel" type="radio"> 4
-                </label>
-                <label class="btn btn-secondary">
-                    <input id="btnZoom5" name="zoomLevel" type="radio">5
-                </label>
-                <label class="btn btn-secondary">
-                    <input id="btnZoom6" name="zoomLevel" type="radio"> 6
-                </label>
-                <label class="btn btn-secondary">
-                    <input id="btnZoom7" name="zoomLevel" type="radio"> max
+                    <input data-level="5" id="btnZoom5" name="zoomLevel" type="radio"> max
                 </label>
             </div>
 
@@ -114,14 +111,16 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="satVelocityLbl">Velocity (m/s):</span>
                 </div>
-                <input aria-describedby="satVelocityLbl" aria-label="Velocity" class="form-control" id="satVelocityOutput"
+                <input aria-describedby="satVelocityLbl" aria-label="Velocity" class="form-control"
+                       id="satVelocityOutput"
                        placeholder="Velocity" readonly type="number" value="0.0">
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="satAccelerationLbl">Acceleration (m/s):</span>
                 </div>
-                <input aria-describedby="satAccelerationLbl" aria-label="Acceleration" class="form-control" id="satAccelerationOutput"
+                <input aria-describedby="satAccelerationLbl" aria-label="Acceleration" class="form-control"
+                       id="satAccelerationOutput"
                        placeholder="Acceleration" readonly type="number" value="0.0">
             </div>
         </div>

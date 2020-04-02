@@ -12,6 +12,13 @@ window.addEventListener("load", function (e) {
     board.addBody(moon, new Coord(0, 0));
     board.addBody(sat, new Coord(moon.radius + 50, 0));
 
+    for (let i = 0; i < 6; i++) {
+        const zoomBtn = document.getElementById(`btnZoom${i}`);
+        zoomBtn.addEventListener("click", () => {
+            board.changeZoom(zoomBtn.dataset.level);
+        });
+    }
+
     console.timeEnd("Init");
 });
 
