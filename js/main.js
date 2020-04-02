@@ -18,6 +18,7 @@ window.addEventListener("load", function (e) {
             board.changeZoom(zoomBtn.dataset.level);
         });
     }
+    document.getElementById("btnZoom3").click(); // default zoom level to avoid FF page state caching
 
     console.timeEnd("Init");
 });
