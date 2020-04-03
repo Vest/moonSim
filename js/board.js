@@ -133,8 +133,13 @@ class Board {
         let centerX = 0, centerY = 0, radius = 0;
 
         for (let body of this._lightObjects) {
-            centerX = this._viewportParams.projectX(this._positions.get(body.key).x);
-            centerY = this._viewportParams.projectY(this._positions.get(body.key).y);
+            const bodyPos = this._positions.get(body.key);
+            if (!this._viewportParams.isPointVisible(bodyPos)) {
+                continue;
+            }
+
+            centerX = this._viewportParams.projectX(bodyPos.x);
+            centerY = this._viewportParams.projectY(bodyPos.y);
 
             this.ctx.save();
             this.ctx.fillStyle = "Black";

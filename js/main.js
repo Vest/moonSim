@@ -19,12 +19,32 @@ window.addEventListener("load", function (e) {
     }
     document.getElementById("btnZoom3").click(); // default zoom level to avoid FF page state caching
 
-    universe.addBody(moon, new Coord(0, 0));
-    universe.addBody(sat, new Coord(moon.radius + 100, 0), new Velocity(2, 0));
+    const lunarOrbit = document.getElementById("satOrbitInput").valueAsNumber;
+    const satSpeed = document.getElementById("satStartVelocityInput").valueAsNumber;
 
-    board.addBody(universe.massBodies[0].body, universe.massBodies[0].position);
-    board.addBody(universe.lightBodies[0].body, universe.lightBodies[0].position);
+    let massiveBody = universe.addBody(moon, new Coord(0, 0));
+    board.addBody(massiveBody.body, massiveBody.position);
 
+    let lightBody = universe.addBody(sat, new Coord(moon.radius + lunarOrbit, 0), new Velocity(0, satSpeed));
+    board.addBody(lightBody.body, lightBody.position);
+
+    const btnStart = document.getElementById("btnStart");
+    const btnStop = document.getElementById("btnStop");
+    btnStart.addEventListener("click", () => {
+        btnStart.disabled = true;
+        btnStop.disabled = false;
+        universe.start();
+
+        window.setInterval(() => {
+            universe.makeStep();
+        }, 1);
+
+    });
+    btnStop.addEventListener("click", () => {
+        btnStart.disabled = false;
+        btnStop.disabled = true;
+        universe.stop();
+    });
 
     console.timeEnd("Init");
 });
