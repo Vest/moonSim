@@ -42,7 +42,7 @@ class Universe {
         const acc = G * moonState.body.weight / distSquared;
 
         satState.acc.ax = -acc * Math.cos(alpha); //direction toward the Moon
-        satState.acc.ay = acc * Math.sin(alpha);
+        satState.acc.ay = -acc * Math.sin(alpha);
 
         satState.velocity.vx += satState.acc.ax;
         satState.velocity.vy += satState.acc.ay;
