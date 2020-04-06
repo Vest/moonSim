@@ -41,14 +41,14 @@ class Universe {
         const orbit = Math.sqrt(distSquared) - moonState.body.radius;
         const acc = G * moonState.body.weight / distSquared;
 
-        satState.acc.ax = -acc * Math.cos(alpha); //direction toward the Moon
+        satState.acc.ax = -acc * Math.cos(alpha); // direction toward the Moon
         satState.acc.ay = -acc * Math.sin(alpha);
 
         satState.velocity.vx += satState.acc.ax;
         satState.velocity.vy += satState.acc.ay;
 
-        console.log(`Angle between dy & dx is ${alpha * 180 / Math.PI} deg`);
-        console.log(`Lunar orbit: ${orbit} m`);
+        console.log(`Angle between dy & dx is ${Math.floor(alpha * 180 / Math.PI)} deg`);
+        console.log(`Lunar orbit: ${Math.floor(orbit)} m`);
 
         satState.position.x += satState.velocity.vx;
         satState.position.y += satState.velocity.vy;
@@ -62,7 +62,7 @@ class Universe {
     }
 
     stop() {
-        this._isRunning = stop;
+        this._isRunning = false;
         console.log("World, stop!");
     }
 

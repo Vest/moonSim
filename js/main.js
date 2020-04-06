@@ -30,12 +30,13 @@ window.addEventListener("load", function (e) {
 
     const btnStart = document.getElementById("btnStart");
     const btnStop = document.getElementById("btnStop");
+    let stepIntervalHandle;
     btnStart.addEventListener("click", () => {
         btnStart.disabled = true;
         btnStop.disabled = false;
         universe.start();
 
-        window.setInterval(() => {
+        stepIntervalHandle = window.setInterval(() => {
             universe.makeStep();
         }, 1);
 
@@ -43,6 +44,7 @@ window.addEventListener("load", function (e) {
     btnStop.addEventListener("click", () => {
         btnStart.disabled = false;
         btnStop.disabled = true;
+        clearInterval(stepIntervalHandle);
         universe.stop();
     });
 
